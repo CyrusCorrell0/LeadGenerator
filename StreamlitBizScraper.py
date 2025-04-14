@@ -9,6 +9,7 @@ from io import StringIO
 st.title("Business Phone Number Scraper")
 
 # Input for bounding box coordinates
+st.write("Default boundary box set to SF, map visualization coming soon!")
 st.header("Bounding Box Coordinates")
 col1, col2 = st.columns(2)
 with col1:
