@@ -90,7 +90,7 @@ if st.button("Scrape Business Phone Numbers"):
         
     except Exception as e:
       st.error(f"An error occurred: {str(e)}")
-
+st.write("Made with love by Cyrus Correll")
 # Add some instructions
 st.sidebar.header("Instructions")
 st.sidebar.write("""
