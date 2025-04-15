@@ -9,6 +9,7 @@ from io import StringIO
 st.title("Business Phone Number Scraper")
 
 # Input for bounding box coordinates
+st.h4("Feeling short on leads? This tool allows the user to designate a boundary box, select business categories, and find the phone numbers of businesses in said categories with no listed website. Powered by Overture Maps, an open source geospatial comapny. Quick, easy, free to use!")
 st.write("Default boundary box set to SF, map visualization coming soon!\nFor a quick demo, simply press the \"Scrape Business Phone Numbers\" Button at the bottom of this page.")
 st.header("Bounding Box Coordinates")
 col1, col2 = st.columns(2)
