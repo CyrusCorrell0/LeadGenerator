@@ -30,6 +30,7 @@ categories_input = st.text_area("Enter categories (one per line)", "\n".join(def
 categories = [cat.strip() for cat in categories_input.split("\n") if cat.strip()]
 
 # Process button
+st.write("Click me!")
 if st.button("Scrape Business Phone Numbers"):
   with st.spinner("Fetching data from Overture Maps..."):
     try:
