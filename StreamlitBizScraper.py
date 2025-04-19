@@ -38,7 +38,7 @@ if st.button("Scrape Business Phone Numbers"):
     try:
       # Get geodataframe
       gdf = core.geodataframe("place", bbox=bbox)
-      gdf = gdf[gdf['confidence'] >= 0.9]
+      #gdf = gdf[gdf['confidence'] >= 0.9]
       # Extract business data
       biz = gdf[gdf.columns[7]]
       biz_primary = biz.apply(lambda x: x.get('primary', 'N/A'))
