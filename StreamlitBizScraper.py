@@ -34,6 +34,7 @@ categories = [cat.strip() for cat in categories_input.split("\n") if cat.strip()
 if st.button("High Confidence Search"):
   with st.spinner("Fetching data from Overture Maps..."):
     try:
+      gdf = core.geodataframe("place", bbox=bbox)
       gdf_high_conf = gdf[gdf['confidence'] >= 0.9]
       
       biz_high_conf = gdf_high_conf[gdf_high_conf.columns[7]]
