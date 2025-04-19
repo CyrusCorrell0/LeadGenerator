@@ -46,7 +46,7 @@ if st.button("High Confidence Search"):
 
       for category in categories:
         phone = []
-        for i in range(len(biz)):
+        for i in range(len(biz_high_conf)):
           if biz_primary_hc[i] == category and gdf_high_conf[gdf_high_conf.columns[9]][i] is None:
             if biz_phones_hc[i] is not None:
               phone.append(biz_phones_hc[i])
