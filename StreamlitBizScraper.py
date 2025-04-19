@@ -31,69 +31,7 @@ default_categories = ["cafe", "restaurant", "car_dealer", "florist"]
 categories_input = st.text_area("Enter categories (one per line)", "\n".join(default_categories))
 categories = [cat.strip() for cat in categories_input.split("\n") if cat.strip()]
 
-if st.button("High Confidence Search"):
-  with st.spinner("Fetching data from Overture Maps..."):
-    try:
-      gdf = core.geodataframe("place", bbox=bbox)
-      st.write("Got gdf")
-      gdf_high_conf = gdf[gdf['confidence'] >= 0.9]
-      
-      biz_high_conf = gdf_high_conf[gdf_high_conf.columns[7]]
-      biz_primary_hc = biz_high_conf.apply(lambda x: x.get('primary', 'N/A'))
-      biz_phones_hc = gdf_high_conf[gdf_high_conf.columns[12]]
 
-      phones = []
-      results = {}
-
-      for category in categories:
-        phone = []
-        for i in range(len(biz_high_conf)):
-          if biz_primary_hc[i] == category and gdf_high_conf[gdf_high_conf.columns[9]][i] is None:
-            if biz_phones_hc[i] is not None:
-              phone.append(biz_phones_hc[i])
-        
-        phones.append(phone)
-        results[category] = phone
-        st.write(f"Number of phone numbers found for {category} businesses without websites: {len(phone)}")
-      
-      # Display phone numbers
-      st.header("Results")
-      
-      for idx, category in enumerate(categories):
-        if phones[idx]:
-          st.subheader(f"{category.capitalize()} Phone Numbers")
-          phone_df = pd.DataFrame({"Phone": [p[0] for p in phones[idx] if p and len(p) > 0]})
-          st.dataframe(phone_df)
-          
-          # Download button for each category
-          csv = phone_df.to_csv(index=False)
-          st.download_button(
-            label=f"Download {category} phone numbers",
-            data=csv,
-            file_name=f"{category}_phones.csv",
-            mime="text/csv"
-          )
-      
-      # Download all data as one file
-      all_phones = {}
-      for idx, category in enumerate(categories):
-        if phones[idx]:
-          all_phones[category] = [p[0] for p in phones[idx] if p and len(p) > 0]
-      
-      all_df = pd.DataFrame({cat: pd.Series(all_phones.get(cat, [])) for cat in categories})
-      csv = all_df.to_csv(index=False)
-      st.download_button(
-        label="Download all phone numbers",
-        data=csv,
-        file_name="all_business_phones.csv",
-        mime="text/csv"
-      )
-        
-    except Exception as e:
-      st.error(f"An error occurred: {str(e)}")
-
-
-# Process button
 st.write("Click me!")
 if st.button("Scrape Business Phone Numbers"):
   with st.spinner("Fetching data from Overture Maps..."):
